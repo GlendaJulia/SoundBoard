@@ -15,10 +15,12 @@ class SoundViewController: UIViewController {
     @IBOutlet weak var reproducirButton: UIButton!
     @IBOutlet weak var nombreTextField: UITextField!
     @IBOutlet weak var agregarButton: UIButton!
+    @IBOutlet weak var recordingTimeLabel: UILabel!
     
     var grabarAudio:AVAudioRecorder?
     var reproducirAudio:AVAudioPlayer?
     var audioURL:URL?
+    var meterTimer:Timer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,14 +56,27 @@ class SoundViewController: UIViewController {
         }
     }
     
+    @objc func updateAudioMeter(timer: Timer){
+        if grabarAudio!.isRecording{
+            let hr = Int(((grabarAudio?.currentTime)! / 60) / 60)
+            let min = Int((grabarAudio?.currentTime)! / 60)
+            let sec = Int ((grabarAudio?.currentTime.truncatingRemainder(dividingBy: 60))!)
+            let totalTimeString = String(format: "%02d:%02d:%02d", hr, min, sec)
+            recordingTimeLabel.text = totalTimeString
+            grabarAudio?.updateMeters()
+        }
+    }
+    
     @IBAction func grabarTapped(_ sender: Any) {
         if grabarAudio!.isRecording{
             grabarAudio?.stop()
             grabarButton.setTitle("GRABAR", for: .normal)
             reproducirButton.isEnabled = true
             agregarButton.isEnabled = true
+            
         }else{
             grabarAudio?.record()
+            meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.updateAudioMeter(timer:)), userInfo: nil, repeats: true)
             grabarButton.setTitle("DETENER", for: .normal)
             reproducirButton.isEnabled = false
         }
@@ -81,6 +96,7 @@ class SoundViewController: UIViewController {
         let grabacion = Grabacion(context: context)
         grabacion.nombre = nombreTextField.text
         grabacion.audio = NSData(contentsOf: audioURL!)! as Data
+        grabacion.duracion = recordingTimeLabel.text
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
         navigationController!.popViewController(animated: true)
     }

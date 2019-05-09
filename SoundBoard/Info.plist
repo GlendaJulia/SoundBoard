@@ -43,5 +43,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    
+    <key>CFBundleURLTypes</key> <array> <dict> <key>CFBundleURLSchemes</key> <array> <string>fb683905718733919</string> </array> </dict> </array> <key>FacebookAppID</key> <string>683905718733919</string> <key>FacebookDisplayName</key> <string>Snapchat</string>
 </dict>
 </plist>

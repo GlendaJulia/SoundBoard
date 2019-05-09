@@ -2,9 +2,10 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Grabacion" representedClassName="Grabacion" syncable="YES" codeGenerationType="class">
         <attribute name="audio" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="duracion" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nombre" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Grabacion" positionX="-63" positionY="-18" width="128" height="75"/>
+        <element name="Grabacion" positionX="-63" positionY="-18" width="128" height="90"/>
     </elements>
 </model>
